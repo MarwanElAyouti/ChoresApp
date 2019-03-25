@@ -1,45 +1,100 @@
 package com.example.chores;
 
-import android.app.Notification;
+import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.os.Build;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.chores.Utils.bnvUtils;
+import com.example.chores.Entities.User;
+import com.example.chores.Database.UserDAO;
+import com.example.chores.Database.ChoresDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    
+
+    private Button btSignIn;
+    private Button btSignUp;
+    private EditText edtEmail;
+    private EditText edtPassword;
+    private ChoresDatabase database;
+
+    private UserDAO userDao;
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bnvSetup();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Check User...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setProgress(0);
+
+
+        database = Room.databaseBuilder(this, ChoresDatabase.class, "mi-database.database")
+                .allowMainThreadQueries()
+                .build();
+
+        userDao = database.getUserDao();
+
+
+        btSignIn = findViewById(R.id.btSignIn);
+        btSignUp = findViewById(R.id.btSignUp);
+
+        edtEmail = findViewById(R.id.emailinput);
+        edtPassword = findViewById(R.id.passwordinput);
+
+
+
+        btSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            }
+        });
+        btSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!emptyValidation()) {
+                    progressDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user = userDao.getUser(edtEmail.getText().toString(), edtPassword.getText().toString());
+                            if(user!=null){
+                                Intent i = new Intent(MainActivity.this, MyRequestsActivity.class);
+                                i.putExtra("User", user);
+                                startActivity(i);
+                                finish();
+                            }else{
+                                Toast.makeText(MainActivity.this, "Unregistered user, or incorrect", Toast.LENGTH_SHORT).show();
+                            }
+                            progressDialog.dismiss();
+                        }
+                    }, 1000);
+
+                }else{
+                    Toast.makeText(MainActivity.this, "Empty Fields", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 
-    /** Runs when the "TEST SETTINGS" button on the home screen is pressed */
-    public void testSettings(View view) {
-        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-    }
-
-    public void testAddJobs(View view) {
-         startActivity(new Intent(MainActivity.this, AddJobsActivity.class));
-    }
-/** Runs when the "TEST NOTIFICATION" button on the home screen is pressed */
-    public void testNotification(View view) {
-        Notification.Builder a = ChoresNotificationHelper
-                .notificationBuilder(this, "This", "is a test");
-        ChoresNotificationHelper.notifyWithBuilder(this, a);
-    }
-    private void bnvSetup(){
-        BottomNavigationView bnv =findViewById(R.id.bottom_navigation);
-        bnvUtils.startNav(MainActivity.this, bnv);
-        Menu menu = bnv.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
+    private boolean emptyValidation() {
+        if (TextUtils.isEmpty(edtEmail.getText().toString()) || TextUtils.isEmpty(edtPassword.getText().toString())) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }
