@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Chores</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <string name="chores_helper_notification_title_template">Chores helper: %1$s</string>
+
+    <string name="pref_title_new_message_notifications">Receive notifications</string>
+
+    <!-- Strings related to profile -->
+    <string name="pref_header_profile">Profile</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="ok">ok</string>
+    <string name="name">name</string>
+    <string name="job">job</string>
+    <string name="gender">gender</string>
+    <string name="cancel">cancel</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+</resources>
