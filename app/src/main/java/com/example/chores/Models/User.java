@@ -1,4 +1,4 @@
-package com.example.chores.Entities;
+package com.example.chores.Models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -17,16 +17,18 @@ public class User implements Serializable {
     private int id;
     private String name;
     private String lastName;
+
     private String email;
     private String password;
+    private String phoneNumber;
 
-    public User(String name, String lastName, String email, String password) {
+    public User(String name, String lastName, String email, String password, String phoneNumber) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
     }
-
 
     @NonNull
     public int getId() {
@@ -69,6 +71,10 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
     @Override
     public String toString() {
         return "User{" +
@@ -77,6 +83,7 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", phoneNumber ='" + phoneNumber + '\'' +
                 '}';
     }
 }

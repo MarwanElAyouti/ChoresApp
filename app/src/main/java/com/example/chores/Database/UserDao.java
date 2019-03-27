@@ -6,11 +6,10 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.chores.Entities.User;
+import com.example.chores.Models.User;
 
 @Dao
-public interface UserDAO {
-
+public interface UserDao {
     @Query("SELECT * FROM User where email= :mail and password= :password")
     User getUser(String mail, String password);
 

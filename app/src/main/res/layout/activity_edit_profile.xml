@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +21,18 @@
             android:layout_below="@id/r1"
             android:id="@+id/r2">
             <include layout="@layout/layout_center_edit_profile"/>
+
+            <EditText
+                android:id="@+id/phonenumberinput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:fontFamily="sans-serif-light"
+                android:hint="phone number"
+                android:inputType="phone"
+                android:textColor="@color/grey"
+                android:textColorHint="@color/grey"
+                android:textSize="17sp" />
         </RelativeLayout>
     </RelativeLayout>
 

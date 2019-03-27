@@ -3,18 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context="com.example.chores.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="27dp">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.8"
-            android:background="@android:color/holo_blue_light" />
+            android:background="@color/colorWhite" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,13 +28,13 @@
                 android:id="@+id/emailinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
                 android:hint="Email"
-                android:inputType="textEmailAddress"
                 android:imeOptions="actionNext"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
 
             <EditText
@@ -42,25 +43,44 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/emailinput"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/colorWhite"
                 android:fontFamily="sans-serif-light"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="17sp"/>
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:textSize="17sp" />
         </RelativeLayout>
 
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@color/colorWhite" />
+
         <Button
-            android:id="@+id/btSignIn"
+            android:id="@+id/btSignInR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/btSignUp"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button_white"
-            android:text="Sign In"
+            android:text="Sign In as Requester"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/btSignInP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btSignInR"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/button_white"
+            android:text="Sign In as Provider"
             android:textColor="@color/colorPrimary" />
 
         <Button
@@ -68,12 +88,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/button_red"
             android:text="Sign Up"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorWhite" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

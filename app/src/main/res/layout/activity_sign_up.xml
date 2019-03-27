@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.8"
-            android:background="@android:color/holo_blue_bright" />
+            android:background="@color/colorAccent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_marginEnd="40dp">
 
             <EditText
-                android:id="@+id/nameinput"
+                android:id="@+id/firstnameinput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorWhite"
@@ -35,7 +35,7 @@
                 android:textSize="17sp" />
             <EditText
                 android:id="@+id/lastnameinput"
-                android:layout_below="@id/nameinput"
+                android:layout_below="@id/firstnameinput"
                 android:layout_width="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_height="wrap_content"
@@ -74,6 +74,13 @@
                 android:textColorHint="@color/colorWhite"
                 android:textSize="17sp" />
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@color/colorAccent" />
 
         <Button
             android:id="@+id/btRegister"

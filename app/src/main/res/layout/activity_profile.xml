@@ -7,12 +7,15 @@
     tools:context=".ProfileActivity">
 
     <RelativeLayout
+        android:id="@+id/relLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/relLayout">
-        <include layout="@layout/layout_top_profile"/>
-        <include layout="@layout/layout_profile"/>
-        <include layout="@layout/layout_bnv"/>
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_top_profile" />
+
+        <include layout="@layout/layout_profile" />
+
+        <include layout="@layout/layout_bnv" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

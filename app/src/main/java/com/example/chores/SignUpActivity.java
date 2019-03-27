@@ -12,10 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.chores.Database.ChoresDatabase;
-import com.example.chores.Database.UserDAO;
-import com.example.chores.Entities.User;
-
+import com.example.chores.Database.UserDao;
+import com.example.chores.Database.UserDatabase;
+import com.example.chores.Models.User;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -27,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btCancel;
     private Button btRegister;
 
-    private UserDAO userDao;
+    private UserDao userDao;
 
     private ProgressDialog progressDialog;
 
@@ -43,7 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setProgress(0);
 
 
-        edtName = findViewById(R.id.nameinput);
+        edtName = findViewById(R.id.firstnameinput);
         edtLastName = findViewById(R.id.lastnameinput);
         edtEmail = findViewById(R.id.emailinput);
         edtPassword = findViewById(R.id.passwordinput);
@@ -51,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
         btCancel = findViewById(R.id.btCancel);
         btRegister = findViewById(R.id.btRegister);
 
-        userDao = Room.databaseBuilder(this, ChoresDatabase.class, "mi-database.db")
+        userDao = Room.databaseBuilder(this, UserDatabase.class, "mi-database.db")
                 .allowMainThreadQueries()
                 .build()
                 .getUserDao();
@@ -59,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                startActivity(new Intent(SignUpActivity.this, com.example.chores.MainActivity.class));
                 finish();
             }
         });
@@ -75,10 +74,10 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             User user = new User(edtName.getText().toString(), edtLastName.getText().toString(),
-                                    edtEmail.getText().toString(), edtPassword.getText().toString());
+                                    edtEmail.getText().toString(), edtPassword.getText().toString(), "");
                             userDao.insert(user);
                             progressDialog.dismiss();
-                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                            startActivity(new Intent(SignUpActivity.this, com.example.chores.MainActivity.class));
                         }
                     }, 1000);
 

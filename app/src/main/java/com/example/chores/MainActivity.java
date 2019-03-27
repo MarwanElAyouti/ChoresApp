@@ -12,19 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.chores.Entities.User;
-import com.example.chores.Database.UserDAO;
-import com.example.chores.Database.ChoresDatabase;
+import com.example.chores.Database.UserDao;
+import com.example.chores.Database.UserDatabase;
+import com.example.chores.Models.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btSignIn;
+    private Button btSignInRequester;
     private Button btSignUp;
+    private Button btSignInProvider;
     private EditText edtEmail;
     private EditText edtPassword;
-    private ChoresDatabase database;
+    private UserDatabase database;
 
-    private UserDAO userDao;
+    private UserDao userDao;
     private ProgressDialog progressDialog;
 
     @Override
@@ -39,14 +40,15 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setProgress(0);
 
 
-        database = Room.databaseBuilder(this, ChoresDatabase.class, "mi-database.database")
+        database = Room.databaseBuilder(this, UserDatabase.class, "mi-database.db")
                 .allowMainThreadQueries()
                 .build();
 
         userDao = database.getUserDao();
 
 
-        btSignIn = findViewById(R.id.btSignIn);
+        btSignInRequester = findViewById(R.id.btSignInR);
+        btSignInProvider = findViewById(R.id.btSignInP);
         btSignUp = findViewById(R.id.btSignUp);
 
         edtEmail = findViewById(R.id.emailinput);
@@ -60,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
-        btSignIn.setOnClickListener(new View.OnClickListener() {
+
+        btSignInRequester.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!emptyValidation()) {
@@ -70,7 +73,34 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             User user = userDao.getUser(edtEmail.getText().toString(), edtPassword.getText().toString());
                             if(user!=null){
-                                Intent i = new Intent(MainActivity.this, MyRequestsActivity.class);
+                                Intent i = new Intent(MainActivity.this, AddJobsActivity.class);
+                                i.putExtra("User", user);
+                                startActivity(i);
+                                finish();
+                            }else{
+                                Toast.makeText(MainActivity.this, "Unregistered user, or incorrect", Toast.LENGTH_SHORT).show();
+                            }
+                            progressDialog.dismiss();
+                        }
+                    }, 1000);
+
+                }else{
+                    Toast.makeText(MainActivity.this, "Empty Fields", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btSignInProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!emptyValidation()) {
+                    progressDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user = userDao.getUser(edtEmail.getText().toString(), edtPassword.getText().toString());
+                            if(user!=null){
+                                Intent i = new Intent(MainActivity.this, EditProfileActivity.class);
                                 i.putExtra("User", user);
                                 startActivity(i);
                                 finish();

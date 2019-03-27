@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/chores_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".MyRequestsActivity" />
         <activity
             android:name=".SettingsActivity"
